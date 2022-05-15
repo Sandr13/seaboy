@@ -1,52 +1,36 @@
-#include<stdio.h>
-#include <stdlib.h>
-#include <locale.h>
-#include <Windows.h>
+#include <stdio.h>
+#include "stdlib.h"
+#include "time.h"
+
+
+#define N 5
 
 int main() {
+    srand(time(NULL));
+    int array[N][N];
+    int x, y;
+    int i, j;
 
-    SetConsoleCP(1251);//
-    SetConsoleOutputCP(1251);//
-
-    char *locale = setlocale(LC_ALL, ""); // русификация вывода на консоль
-
-    const int N = 5;
-
-    int map[N][N];
-
-    for(int i = 0; i < N; ++i) {
-        for(int j = 0; j < N; ++j) {
-            map[i][j] = 0;
+    for (i = 0; i < N; i++) {
+        for (j = 0; j < N; j++) {
+            array[i][j] = (rand() % 100) <= 30 ? 1 : 0;
         }
     }
-
-    int x, y;
-
-    for(int i = 0; i < N; ++i) {
-        x = rand() % N;
-        y = rand() % N;
-        map[x][y] = 1;
-    }
-
-    for(int i = 0; i < N; ++i) {
-        for(int j = 0; j < N; ++j) {
-            printf("%d ", map[i][j]);
+    for (i = 0; i < N; ++i) {
+        for (j = 0; j < N; ++j) {
+            printf("%i ", array[i][j]);
         }
         printf("\n");
     }
 
-    while(1) {
-        while (getchar() != '\n') continue; // чистим буфер
-        printf("Введите координаты цели:\n");
-        scanf("d", x);
-        scanf("d", y);
+    while (1) {
+        scanf("%i %i", &x, &y);
 
-        if(map[x][y] == 1) {
-            printf("Попадание! \n");
-            map[x][y] = 0;
+        if (array[x][y] == 0) {
+            printf("past!, %i\n", array[x][y]);
         }
         else {
-            printf("Промах! \n");
+            printf("hit!, %i\n", array[x][y]);
         }
     }
 
